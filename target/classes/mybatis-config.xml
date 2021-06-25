@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="jdbc.properties"/>
+
+    <!--配置日志
+       settings：控制mybatis全局行为
+   -->
+    <settings>
+        <!--设置mybatis输出日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--
+        设置与数据库交互的环境，
+        例如在此处配置二级缓存，例如查询延迟加载策略等。。。
+        配置的目的是更加有效的查询表中的记录
+
+        在实际项目开发中 settings基本没有用，查询优化的效果不明显
+
+    <settings>
+        <setting name="" value=""/>
+    </settings>
+    -->
+
+    <!--
+        使用package批量起别名 别名为类名（不区分大小写）
+        但是写全路径也可提高可读性
+    -->
+    <typeAliases>
+        
+        <package name="com.bjpowernode.crm.settings.domain"/>
+        <package name="com.bjpowernode.crm.workbench.domain"/>
+
+    </typeAliases>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!--<mapper resource="org/mybatis/example/BlogMapper.xml"/>
+            <mapper resource="com.bjpowernode/dao/StudentDao.xml"/>
+        -->
+        <!--批量注册，表示在dao包下，所有的mapper映射文件自动注册
+
+        <mapper resource="com.bjpowernode/dao/StudentDao.xml"/>
+        -->
+        <package name="com.bjpowernode.crm.settings.dao"/>
+        <package name="com.bjpowernode.crm.workbench.dao"/>
+    </mappers>
+</configuration>
